@@ -118,7 +118,7 @@ pnpm add file:C:/Users/Administrator/Projects/cortico-world-live-cue
 | :-- | :-- | :-- |
 | `liveNoticeTarget` | 群号 | 开播时不 @ 全体、不发通知 |
 
-### 5. 怎么认出「主播自己」
+### 5. 怎么认出「房主自己」
 
 | 配置 | 填什么 | 不填会怎样 |
 | :-- | :-- | :-- |
