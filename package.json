@@ -1,0 +1,48 @@
+{
+  "name": "cortico-world-live-cue",
+  "version": "0.8.0",
+  "description": "Cortico World: 把 B 站直播间弹幕桥接成一次常规唤醒，让桌宠用对话气泡回应观众（弹幕/礼物/SC/上舰）",
+  "type": "module",
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "keywords": [
+    "cortico-world",
+    "bilibili",
+    "danmaku",
+    "live",
+    "弹幕",
+    "直播"
+  ],
+  "files": [
+    "src",
+    "dist",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "RELEASE.md"
+  ],
+  "cortico": {
+    "kind": "world",
+    "api": 6,
+    "displayName": "直播弹幕桥",
+    "webUiClient": "dist/webui-0.8.0.js",
+    "describe": "describe.json",
+    "tags": [
+      "streaming",
+      "external-setup",
+      "unofficial-api"
+    ]
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublish-check": "python scripts/prepublish_check.py"
+  },
+  "devDependencies": {
+    "cortico": "*",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "author": "然哥"
+}

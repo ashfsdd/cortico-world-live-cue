@@ -1,0 +1,10 @@
+__pycache__/
+node_modules/
+_archive/
+docs/
+*.bak-*
+*.log
+_issue_body.md
+_served.js
+_smoke_ui.mjs
+_verify_level.ts

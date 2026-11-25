@@ -1,0 +1,245 @@
+{
+  "tools": [
+    {
+      "name": "guard_publish",
+      "description": "Publish one finished artwork to three places at once: the QQ fan group (with an optional @), a Bilibili dynamic post, and QQ Qzone. Use it ONCE per image; skip a platform with the `skip` field instead of calling twice.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The guard's Bilibili nickname (used for the caption and default @)."
+          },
+          "image": {
+            "type": "string",
+            "description": "Absolute path of the finished image file."
+          },
+          "text": {
+            "type": "string",
+            "description": "Caption: 2-4 sentences in three beats. Do not repeat the greeting already written on the artwork."
+          },
+          "at": {
+            "type": "string",
+            "description": "Who to @ in the QQ group: the group card or nickname. Defaults to `name`."
+          },
+          "group": {
+            "type": "string",
+            "description": "QQ group number. Defaults to liveNoticeTarget in config."
+          },
+          "skip": {
+            "type": "string",
+            "description": "Comma-separated platforms to skip: group,bili,qzone."
+          }
+        },
+        "required": [
+          "name",
+          "image",
+          "text"
+        ]
+      },
+      "tags": [
+        "write",
+        "act",
+        "speak"
+      ],
+      "summary": {
+        "zh": "一张成品图一次发三处：粉丝群（可 @）、B站动态、QQ空间；要跳过某处用 skip。",
+        "en": "Publish one image to QQ group, Bilibili dynamic and Qzone in a single call."
+      }
+    },
+    {
+      "name": "guard_check",
+      "description": "Look up whether someone is a current guard (舰长/提督/总督), when the membership expires, and how many drawings they still have today.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Group card or Bilibili nickname."
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "tags": [
+        "read"
+      ],
+      "summary": {
+        "zh": "查某人是不是在期舰长、到期日、今天还能画几张。",
+        "en": "Check guard status, expiry and remaining drawing quota."
+      }
+    },
+    {
+      "name": "guard_bind",
+      "description": "Bind a QQ group name to a Bilibili nickname so later lookups (guard_check, welcome) recognise the same person.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "qq_name": {
+            "type": "string",
+            "description": "Name shown in the QQ group."
+          },
+          "bili_name": {
+            "type": "string",
+            "description": "The Bilibili nickname that appears in the guard roster."
+          }
+        },
+        "required": [
+          "qq_name",
+          "bili_name"
+        ]
+      },
+      "tags": [
+        "write"
+      ],
+      "summary": {
+        "zh": "把群名片和 B站昵称绑成一个人，之后查舰长、欢迎都用得上。",
+        "en": "Bind a QQ display name to a Bilibili nickname."
+      }
+    },
+    {
+      "name": "guard_portrait_save",
+      "description": "Save a congratulation-portrait draft (prompt + optional avatar path) for a guard without drawing it yet. The draft waits for the owner's confirmation before any image is generated.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The guard's Bilibili nickname."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Full image prompt: style, scene and the greeting text to write on the picture."
+          },
+          "avatar_path": {
+            "type": "string",
+            "description": "Local avatar path already fetched; leave empty if none."
+          }
+        },
+        "required": [
+          "name",
+          "prompt"
+        ]
+      },
+      "tags": [
+        "write",
+        "act"
+      ],
+      "summary": {
+        "zh": "存一张舰长祝贺画的草稿（提示词+头像），等主人确认后才画。",
+        "en": "Save a guard portrait draft and wait for the owner's confirmation."
+      }
+    },
+    {
+      "name": "guard_portrait_pending",
+      "description": "List the guard portraits that are still waiting for the owner's confirmation.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "tags": [
+        "read"
+      ],
+      "summary": {
+        "zh": "列出还没确认的祝贺画草稿。",
+        "en": "List guard portraits still waiting for confirmation."
+      }
+    },
+    {
+      "name": "guard_portrait_done",
+      "description": "Mark a guard portrait as delivered, so the same guard is not drawn again this month.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The guard's Bilibili nickname."
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "tags": [
+        "write"
+      ],
+      "summary": {
+        "zh": "标记这张祝贺画已交付，避免同一个人这个月被画第二次。",
+        "en": "Mark a portrait as delivered for this month."
+      }
+    },
+    {
+      "name": "avatar_fetch",
+      "description": "Fetch a person's avatar image locally. Give a Bilibili UID when the source is the live room, or a QQ number when it comes from the group.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Bilibili numeric UID (meta.uid of danmaku / guard events)."
+          },
+          "qq": {
+            "type": "string",
+            "description": "QQ number, for group sources."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name, used as the file name."
+          }
+        },
+        "required": []
+      },
+      "tags": [
+        "read",
+        "act"
+      ],
+      "summary": {
+        "zh": "抓头像到本地：直播间给 B站 UID，群里给 QQ 号。",
+        "en": "Fetch an avatar locally by Bilibili UID or QQ number."
+      }
+    },
+    {
+      "name": "draw_quota",
+      "description": "Check or consume a guard's daily drawing quota. `check` only reports; `use` records one drawing and must be called after the image is finished.",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "who": {
+            "type": "string",
+            "description": "The person's group card or nickname, exactly as shown."
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "check",
+              "use"
+            ],
+            "description": "check = only look; use = record one drawing (call after the image is done)."
+          }
+        },
+        "required": [
+          "who"
+        ]
+      },
+      "tags": [
+        "read",
+        "write"
+      ],
+      "summary": {
+        "zh": "查/扣舰长的每日画图额度：check 只看，use 记一张（画完才调）。",
+        "en": "Check or consume a guard's daily drawing quota."
+      }
+    }
+  ],
+  "prompts": []
+}
