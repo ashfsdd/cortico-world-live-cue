@@ -37,7 +37,8 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "prepublish-check": "python scripts/prepublish_check.py"
+    "prepublish-check": "python scripts/prepublish_check.py",
+    "prepublishOnly": "npm run prepublish-check && npm test"
   },
   "devDependencies": {
     "cortico": "*",
